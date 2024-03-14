@@ -4,6 +4,7 @@
 
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 
 const { NotFoundError } = require("./expressError");
 
@@ -26,7 +27,6 @@ app.use("/auth", authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
 app.use("/jobs", jobsRoutes);
-
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
