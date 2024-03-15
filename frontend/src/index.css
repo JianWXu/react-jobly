@@ -13,16 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
+  /* display: flex; */
+  /* Align items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: url(https://joelburton-jobly.surge.sh/static/media/background.6549e727ece768243a0f.png);
@@ -32,14 +27,121 @@ body {
   background-size: cover;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  text-align: center;
-  margin: 0;
+
+  margin: 0; /* Remove default margin */
+  min-height: 100vh; /* Ensure full height of viewport */
+}
+
+.navbar {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0px;
+}
+
+.navbar-container {
+  width: 100%; /* Ensure the container spans the full width of the viewport */
   padding: 0;
+}
+
+.navbar-brand {
+  color: var(--bs-navbar-brand-color);
+  font-size: var(--bs-navbar-brand-font-size);
+  margin-right: var(--bs-navbar-brand-margin-end);
+  padding-bottom: var(--bs-navbar-brand-padding-y);
+  padding-top: var(--bs-navbar-brand-padding-y);
+  margin-top: 15px;
+  margin-left: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 10px; /* Adjust spacing between items */
+  margin-right: 10px;
+}
+
+.navbar a {
+  color: #0d6efd;
+  color: var(--bs-link-color);
+  text-decoration: none;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.navbar a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+}
+
+.companyCard-container {
+  display: flex;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  text-align: center;
+}
+
+.compCardContainer a {
+  color: black;
+  text-decoration: none;
+  font-size: 0.875em;
+}
+
+.compCardContainer .cardTitle {
+  font-size: 1rem;
+  margin-bottom: var(--bs-card-title-spacer-y);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+.container {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.companyCard {
+  background-color: white;
+  margin: 10px 0px;
+  font-size: small;
+  font-weight: 100;
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+  width: 50rem;
+  padding: 5px;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.form-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem auto 1rem auto;
+}
+
+input {
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  width: 50%;
+  font-size: 1em;
+  background-color: white;
+  border: none;
+  color: black;
+  /* display: inline; */
+  /* position: inherit; */
 }
 
 button {
@@ -52,6 +154,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  background-color: #0d6efd;
 }
 button:hover {
   border-color: #646cff;

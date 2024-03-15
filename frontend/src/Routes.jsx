@@ -8,7 +8,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Profile from "./Profile";
 
-function AppRoutes() {
+function AppRoutes({isLoading}) {
     return (
       <Routes>
         <Route path="/" element={<Home />} />

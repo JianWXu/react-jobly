@@ -1,11 +1,10 @@
 import React from "react";
-import "./NavBar.css"
 import { Nav, Container, Navbar  } from "react-bootstrap";
 
 function NavBar() {
   return (
-    <>
-    <nav className="navbar">
+    <div className="navbar-container">
+    <Navbar className="navbar">
       
         <Navbar.Brand href="/">Jobly</Navbar.Brand>
         <ul className="navbar-nav">
@@ -25,9 +24,9 @@ function NavBar() {
           <a href="/profile" className="nav-link">Profile</a>
         </li>
       </ul>
-    </nav>
+    </Navbar>
   
-    </>
+    </div>
 
   );
 }
