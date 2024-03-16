@@ -70,10 +70,6 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-router.get("/search", async function (req, res, next) {
-  const q = req.query;
-  return res.json({ q });
-});
 
 /** GET /[handle]  =>  { company }
  *
