@@ -2,7 +2,7 @@ import axios from "axios";
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
-const BASE_URL = "http://localhost:3001";
+let BASE_URL = "http://localhost:3001";
 
 /** API Class.
  *
@@ -40,19 +40,19 @@ class JoblyApi {
 
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
-    console.log(res);
     return res.companies;
   }
 
   /** Get a list of all companies. */
 
-  static async getCompanies() {
-    let res = await this.request(`companies/`);
-    console.log(res);
-    return res.companies;
+  static async getCompanies(searchTerm) {
+    if (searchTerm) {
+      let res = await this.request(`companies`, { name: searchTerm });
+      return res.companies;
+    }
+    let response = await this.request(`companies/`);
+    return response.companies;
   }
-
-  // obviously, you'll add a lot here ...
 }
 
 // for now, put token ("testuser" / "password" on class)

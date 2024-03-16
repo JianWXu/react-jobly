@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import axios from 'axios';
 import JoblyApi from "../../api";
 import Company from "./Company";
@@ -16,25 +16,17 @@ function Companies(){
         setSearchTerm(term);   
       };
     
-      const handleSubmit = async e => {
+      const handleSubmit = useCallback( async e => {
         e.preventDefault();
         try {            
-            setCompanies(searchTerm);
+            // setCompanies(searchTerm);
+            let res = await JoblyApi.getCompanies(searchTerm)
+            setCompanies(res)
         } catch (error) {
             console.error("Error fetching companies:", error);
         }
-      };
+      }, [searchTerm])
 
-      const fetchCompany = async (term) => {
-        try {
-          const companiesList = await JoblyApi.getCompany(term);
-          setCompanies(companiesList);
-        } catch (error) {
-          console.error("Error fetching companies:", error);
-        }
-      };
-
-      
       useEffect(() => {
         async function fetchCompanies() {
             try {
@@ -47,12 +39,6 @@ function Companies(){
         fetchCompanies();
     }, []);
     
-      useEffect(() => {
-        // Fetch updated list of companies when search term changes
-        if (searchTerm) {
-          fetchCompany(searchTerm);
-        }
-      }, [searchTerm]);
 
     return (
     <>

@@ -15,7 +15,6 @@ const companySearchSchema = require("../schemas/companySearch.json");
 
 const router = new express.Router();
 
-
 /** POST / { company } =>  { company }
  *
  * company should be { handle, name, description, numEmployees, logoUrl }
@@ -69,6 +68,11 @@ router.get("/", async function (req, res, next) {
   } catch (err) {
     return next(err);
   }
+});
+
+router.get("/search", async function (req, res, next) {
+  const q = req.query;
+  return res.json({ q });
 });
 
 /** GET /[handle]  =>  { company }
@@ -127,6 +131,5 @@ router.delete("/:handle", ensureAdmin, async function (req, res, next) {
     return next(err);
   }
 });
-
 
 module.exports = router;
