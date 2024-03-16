@@ -4,8 +4,8 @@ import Home from "./Home";
 import Companies from "./Companies";
 import Company from "./Company";
 import Jobs from "./Jobs";
-import Login from "./Login";
-import Signup from "./Signup";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 import Profile from "./Profile";
 
 function AppRoutes({isLoading}) {
@@ -15,8 +15,8 @@ function AppRoutes({isLoading}) {
         <Route path="/companies" element={<Companies />} />
         <Route path="/companies/:id" element={<Company />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignupForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -62,6 +62,24 @@ class JoblyApi {
     let response = await this.request(`jobs/`);
     return response.jobs;
   }
+
+  static async makeUser(info) {
+    let { username, password, firstName, lastName, email } = info;
+    try {
+      let res = await this.request(
+        `auth/register`,
+        { username, password, firstName, lastName, email },
+        "post"
+      );
+      console.log(res);
+      const { token } = res.data;
+      JoblyApi.token = token;
+      return token;
+    } catch (err) {
+      console.error("Error registering user:", err);
+      throw error;
+    }
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)
