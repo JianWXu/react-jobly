@@ -1,7 +1,7 @@
 import React from "react";
 import { Nav, Container, Navbar  } from "react-bootstrap";
 
-function NavBar() {
+function NavBar({signOut}) {
   return (
     <div className="navbar-container">
     <Navbar className="navbar">
@@ -22,6 +22,9 @@ function NavBar() {
         </li>
         <li className="nav-item">
           <a href="/profile" className="nav-link">Profile</a>
+        </li>
+        <li className="nav-item">
+          <a href="/signout" className="nav-link" onClick={signOut()}>Signout</a>
         </li>
       </ul>
     </Navbar>

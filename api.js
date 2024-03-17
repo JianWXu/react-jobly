@@ -80,6 +80,22 @@ class JoblyApi {
       throw error;
     }
   }
+
+  static async verifyUser(info) {
+    let { username, password } = info;
+    try {
+      let res = await this.request(
+        `auth/token`,
+        { username, password },
+        "post"
+      );
+      console.log(res);
+      return res.token;
+    } catch (err) {
+      console.error("Error logging in:", err);
+      throw error;
+    }
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)
