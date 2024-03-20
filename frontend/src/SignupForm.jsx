@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-
+import UserContext from "./userContext";
 
 function SignupForm({ signUp, shouldShowSignUp, setMessage, message }){
+
+  const {userToken, username} = useContext(UserContext)
 
     const INITIAL_STATE = {
             username: "",
@@ -14,8 +16,6 @@ function SignupForm({ signUp, shouldShowSignUp, setMessage, message }){
     const navigate = useNavigate()
     
     const [formData, setFormData] = useState(INITIAL_STATE)
-
-    console.log(formData)
     
     const handleChange = e => {
             const {name, value} = e.target

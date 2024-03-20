@@ -1,11 +1,14 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect, useCallback, useContext} from "react";
 import axios from 'axios'
 import JoblyApi from "../../api";
 import JobCard from "./JobCard";
+import UserContext from "./userContext";
 
 
 function Jobs(){
     const [jobs, setJobs] = useState([])
+
+    const {userToken, username} = useContext(UserContext)
 
     const [searchTerm, setSearchTerm] = useState('');
     //   const [searchResults, setSearchResults] = useState('');

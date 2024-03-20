@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {Route, Routes, Navigate, useNavigate} from "react-router-dom"
+import UserContext from "./userContext";
 
 
 function LoginForm(props){
@@ -10,7 +11,7 @@ function LoginForm(props){
         password: ""
     } 
     const [formData, setFormData] = useState(INITIAL_STATE)
-
+    const {userToken, username} = useContext(UserContext)
     
 
     const handleChange = e => {

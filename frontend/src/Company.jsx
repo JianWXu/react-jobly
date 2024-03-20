@@ -1,12 +1,13 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect, useCallback, useContext} from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 import JoblyApi from "../../api";
 import JobCard from "./JobCard";
-
+import UserContext from "./userContext";
 
 
 function Company() {
+    const {userToken, username} = useContext(UserContext)
     let { id } = useParams()
     const [company, setCompany] = useState({})
     const [jobs, setJobs] = useState([]);

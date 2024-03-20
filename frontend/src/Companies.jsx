@@ -1,13 +1,13 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect, useCallback, useContext} from "react";
 import axios from 'axios';
 import JoblyApi from "../../api";
 import Company from "./Company";
 import CompanyCard from "./CompanyCard";
-
+import UserContext from "./userContext";
 
 function Companies(){
     const [companies, setCompanies] = useState([])
-
+    const {userToken, username} = useContext(UserContext)
     const [searchTerm, setSearchTerm] = useState('');
     //   const [searchResults, setSearchResults] = useState('');
     
