@@ -4,12 +4,10 @@ import UserContext from "./userContext";
 
 function NavBar({signOut}) {
 
-  const {userToken, username} = useContext(UserContext)
+  const {user} = useContext(UserContext)
 
-  console.log("navbar", userToken)
-  console.log("navbar", username)
-
-  if(userToken && username){    
+  
+  if(user){    
       return (
       <div className="navbar-container">
       <Navbar className="navbar">
@@ -26,7 +24,7 @@ function NavBar({signOut}) {
             <a href="/profile" className="nav-link">Profile</a>
           </li>
           <li className="nav-item">
-            <a href="/signout" className="nav-link" onClick={signOut}>Log out {username}</a>
+            <a href="/signout" className="nav-link" onClick={signOut}>Log out {JSON.parse(user).username}</a>
           </li>
         </ul>
       </Navbar>

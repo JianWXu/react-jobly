@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback, useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 import JoblyApi from "../../api";
@@ -7,20 +8,26 @@ import UserContext from "./userContext";
 
 
 function Company() {
-    const {userToken, username} = useContext(UserContext)
+    const {user} = useContext(UserContext)
+    const navigate = useNavigate();
     let { id } = useParams()
     const [company, setCompany] = useState({})
     const [jobs, setJobs] = useState([]);
+
+
+    useEffect(() => {
+        if (!user) {
+          navigate("/"); 
+        }
+      }, [user, navigate]);
       
 
     useEffect(() => {
         async function fetchCompany() {
             try {      
                 let res = await JoblyApi.getCompany(id)
-                console.log(res)
                 // setCompany(res)
                 setJobs(res.jobs)
-                console.log(jobs)
                 } catch(err) {
                     console.error("Error fetching company:", err)
                 }

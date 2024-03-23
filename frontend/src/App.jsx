@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useLocalStorage } from "@uidotdev/usehooks";
 import AppRoutes from "./Routes"
 import NavBar from './NavBar'
 import JoblyApi from '../../api'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
+import Profile from './Profile';
 import axios from 'axios'
 import { useLocation } from "react-router-dom"
 import UserContext from './userContext'
@@ -12,18 +14,33 @@ function App() {
 
   const INITIAL_STATE = "";
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userToken, setUserToken] = useState(INITIAL_STATE)  
   const [message, setMessage] = useState(INITIAL_STATE)
   const [username, setUsername] = useState(INITIAL_STATE)
+  const [user, setUser] = useLocalStorage("user", INITIAL_STATE)
   const location = useLocation();
 
+  useEffect(()=>{
+    async function getUser() {
+      try {
+        if(username){
+          const res = await JoblyApi.getUser(username)
+          console.log(res)
+          setUser(JSON.stringify(res.user))
+        }  
+      } catch(err) {
+        console.error("Error finding user", error)
+      }
+    }
+    getUser()
+  },[user, username, setUser])
+
+  
   const authLoginInfo = async (data) => {
     try {
       const res = await JoblyApi.verifyUser(data);
       console.log(res);
-      setUserToken(res);
-      setIsLoggedIn(true)      
+      setUserToken(res.token)
       setUsername(data.username)
     } catch (error) {
       console.error("Error logging in:", error);
@@ -44,18 +61,19 @@ function App() {
       await console.log("new username", info.username)
     }catch(err){
       console.error("Error signing up:", err)
-    }
-    
+    }    
   }
 
+  //Function to clear all states to sign user out
   const signOut = () => {
-    setUserToken("")
-    setUsername("")
-    setIsLoggedIn(false)
+    setUserToken(INITIAL_STATE)
+    setUsername(INITIAL_STATE)
+    setUser(INITIAL_STATE)
     console.log("signed out", username)
   }
- 
 
+  
+ 
   // Function to determine whether to show SignupForm based on current route
   const shouldShowSignUp = () => {
     return location.pathname === "/signup"
@@ -66,21 +84,23 @@ function App() {
     return location.pathname === "/login"
   }
 
-  useEffect(() => {
-    console.log("User token updated:", userToken);
-    console.log("User name updated", username)
-  }, [userToken, username]);
+  const shouldShowPatch = () => {
+    return location.pathname === "/profile"
+  }
+
 
   return (
     <>
-      <UserContext.Provider value={{ userToken: userToken, username: username }}>
-        <NavBar signOut={signOut} isLoggedIn={isLoggedIn} />
+      <UserContext.Provider value={{user}}>
+        <NavBar signOut={signOut} />
         <AppRoutes />
         {/* Conditional rendering of SignupForm based on route */}
         {shouldShowSignUp() && (<SignupForm signUp={signUp} shouldShowSignUp={shouldShowSignUp} setMessage={setMessage} message={message}/>)}
         {/* Conditional rendering of LoginForm based on route */}
         {shouldShowLogin() && (
-          <LoginForm isLoggedIn={isLoggedIn} authLoginInfo={authLoginInfo} shouldShowLogin={shouldShowLogin} setMessage={setMessage} message={message}/>)}
+          <LoginForm authLoginInfo={authLoginInfo} shouldShowLogin={shouldShowLogin} setMessage={setMessage} message={message}/>)}
+        {/* Conditional rendering of SignupForm based on route */}
+        {shouldShowPatch() && (<Profile  shouldShowPatch={shouldShowPatch} setMessage={setMessage} message={message}/>)}
     </UserContext.Provider>
   </>
   );

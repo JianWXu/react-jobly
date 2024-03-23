@@ -4,8 +4,6 @@ import UserContext from "./userContext";
 
 function SignupForm({ signUp, shouldShowSignUp, setMessage, message }){
 
-  const {userToken, username} = useContext(UserContext)
-
     const INITIAL_STATE = {
             username: "",
             password: "",

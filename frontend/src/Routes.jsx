@@ -8,7 +8,7 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Profile from "./Profile";
 
-function AppRoutes({isLoading}) {
+function AppRoutes() {
     return (
       <Routes>
         <Route path="/" element={<Home />} />

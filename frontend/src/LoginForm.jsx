@@ -11,7 +11,6 @@ function LoginForm(props){
         password: ""
     } 
     const [formData, setFormData] = useState(INITIAL_STATE)
-    const {userToken, username} = useContext(UserContext)
     
 
     const handleChange = e => {

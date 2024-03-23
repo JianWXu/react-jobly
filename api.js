@@ -76,7 +76,7 @@ class JoblyApi {
       return res.token;
     } catch (err) {
       console.error("Error registering user:", err);
-      throw error;
+      throw err;
     }
   }
 
@@ -88,12 +88,31 @@ class JoblyApi {
         { username, password },
         "post"
       );
-      console.log(res);
       JoblyApi.token = res.token;
       return res.token;
     } catch (err) {
       console.error("Error logging in:", err);
-      throw error;
+      throw err;
+    }
+  }
+
+  static async getUser(info) {
+    try {
+      let res = await this.request(`users/${info}`);
+      return res;
+    } catch (err) {
+      console.error("Error finding user", err);
+      throw err;
+    }
+  }
+
+  static async patchUser(username, data) {
+    try {
+      let res = await this.request(`users/${username}`, { data }, "patch");
+      return res;
+    } catch (err) {
+      console.error("Error updating user", err);
+      throw err;
     }
   }
 }

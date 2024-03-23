@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback, useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import JoblyApi from "../../api";
 import JobCard from "./JobCard";
@@ -7,8 +8,15 @@ import UserContext from "./userContext";
 
 function Jobs(){
     const [jobs, setJobs] = useState([])
-
+    const {user} = useContext(UserContext)
+    const navigate = useNavigate();
     const {userToken, username} = useContext(UserContext)
+
+    useEffect(() => {
+        if (!user) {
+          navigate("/"); 
+        }
+      }, [user, navigate]);
 
     const [searchTerm, setSearchTerm] = useState('');
     //   const [searchResults, setSearchResults] = useState('');

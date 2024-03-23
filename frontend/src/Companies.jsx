@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback, useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import JoblyApi from "../../api";
 import Company from "./Company";
@@ -7,10 +8,18 @@ import UserContext from "./userContext";
 
 function Companies(){
     const [companies, setCompanies] = useState([])
-    const {userToken, username} = useContext(UserContext)
+    const {user} = useContext(UserContext)
+    const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
-    //   const [searchResults, setSearchResults] = useState('');
     
+
+    useEffect(() => {
+        if (!user) {
+          navigate("/"); 
+        }
+      }, [user, navigate]);
+
+
       const handleChange = (event) => {
         const term = event.target.value;
         setSearchTerm(term);   

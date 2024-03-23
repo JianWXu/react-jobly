@@ -1,16 +1,17 @@
 import React, {useContext} from "react";
 import UserContext from "./userContext";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 
 function Home(){
-    const {userToken, username} = useContext(UserContext)
-    console.log("home", userToken)
-    if(userToken && username ){
+    const {user} = useContext(UserContext)
+    
+    
+    if(user){
         return (
             <>
             <h1>Jobly</h1>
             <h3>All the jobs in one, convenient place.</h3>
-            <h2>Welcome Back, {username}</h2>
+            <h2>Welcome Back, {JSON.parse(user).firstName}</h2>
             </>
         )
     }else{
