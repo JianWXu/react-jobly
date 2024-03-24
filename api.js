@@ -23,6 +23,7 @@ class JoblyApi {
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+    console.log("headers", headers);
     const params = method === "get" ? data : {};
 
     try {
@@ -71,9 +72,8 @@ class JoblyApi {
         { username, password, firstName, lastName, email },
         "post"
       );
-      console.log(res);
-      JoblyApi.token = res.token;
-      return res.token;
+
+      return res;
     } catch (err) {
       console.error("Error registering user:", err);
       throw err;
@@ -88,6 +88,7 @@ class JoblyApi {
         { username, password },
         "post"
       );
+      console.log(res.token);
       JoblyApi.token = res.token;
       return res.token;
     } catch (err) {
@@ -108,10 +109,20 @@ class JoblyApi {
 
   static async patchUser(username, data) {
     try {
-      let res = await this.request(`users/${username}`, { data }, "patch");
+      let res = await this.request(`users/${username}`, data, "patch");
       return res;
     } catch (err) {
       console.error("Error updating user", err);
+      throw err;
+    }
+  }
+
+  static async applyJob(username, jobId) {
+    try {
+      let res = await this.request(`users/${username}/jobs/${jobId}`, "post");
+      return res;
+    } catch (err) {
+      console.error("Error applying for job", err);
       throw err;
     }
   }

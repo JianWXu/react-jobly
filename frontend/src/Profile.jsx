@@ -7,6 +7,8 @@ function Profile({ shouldShowPatch, setMessage, message }){
     
     const {user} = useContext(UserContext)
     const userObj = JSON.parse(user)
+    console.log(userObj.username)
+    
     const navigate = useNavigate
 
     const INITIAL_STATE = {

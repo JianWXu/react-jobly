@@ -40,7 +40,7 @@ function App() {
     try {
       const res = await JoblyApi.verifyUser(data);
       console.log(res);
-      setUserToken(res.token)
+      setUserToken(res)
       setUsername(data.username)
     } catch (error) {
       console.error("Error logging in:", error);
@@ -53,8 +53,8 @@ function App() {
       const res = await JoblyApi.makeUser(info);
       setUserToken(prevUserToken => {
         // This callback function executes after userToken has been updated
-        console.log("new user token", res);
-        return res; // Return the updated userToken
+        
+        return res.token; // Return the updated userToken
       });
       setUsername(info.username)
       
