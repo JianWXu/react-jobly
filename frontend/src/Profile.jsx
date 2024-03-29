@@ -9,10 +9,9 @@ function Profile({ shouldShowPatch, setMessage, message }){
     const userObj = JSON.parse(user)
     console.log(userObj.username)
     
-    const navigate = useNavigate
 
     const INITIAL_STATE = {
-        username: userObj.username,
+        // username: userObj.username,
         firstName: userObj.firstName,
         lastName: userObj.lastName,
         email: userObj.email
@@ -42,7 +41,6 @@ function Profile({ shouldShowPatch, setMessage, message }){
         e.preventDefault()
         try{
             await updateProfile(formData)
-            navigate("/")
             console.log("update successful")
             setMessage("update successful")
         }catch(err){
@@ -68,13 +66,12 @@ function Profile({ shouldShowPatch, setMessage, message }){
                   <br />
                   <br />
                   <form onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username: </label>
+                    {/* <label htmlFor="username">Username: </label>
                     <input
                       type="text"
-                      name="username"
-                      value={formData.username}
+                      placeholder={userObj.username}                      
                       disabled
-                    />
+                    /> */}
                     <br />                    
                     <label htmlFor="firstName">First Name: </label>
                     <input
@@ -104,6 +101,7 @@ function Profile({ shouldShowPatch, setMessage, message }){
                     />
                     <button>Submit</button>
                   </form>
+                  {message && <div>{message}</div>}
             </>
         )}
         </>

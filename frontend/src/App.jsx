@@ -22,11 +22,19 @@ function App() {
 
   useEffect(()=>{
     async function getUser() {
+      const token = JoblyApi.token;
+      const headers = {Authorization: `Bearer ${token}`}
+      if(!token){
+        console.error("Token not found")
+        return;
+      }
       try {
-        if(username){
-          const res = await JoblyApi.getUser(username)
+        if(username){          
+          const res = await JoblyApi.getUser(username, {headers})
+          
           console.log(res)
           setUser(JSON.stringify(res.user))
+          setUserToken(token)
         }  
       } catch(err) {
         console.error("Error finding user", error)
@@ -39,6 +47,7 @@ function App() {
   const authLoginInfo = async (data) => {
     try {
       const res = await JoblyApi.verifyUser(data);
+      const token = localStorage.getItem('joblyToken')
       console.log(res);
       setUserToken(res)
       setUsername(data.username)

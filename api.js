@@ -14,7 +14,7 @@ let BASE_URL = "http://localhost:3001";
 
 class JoblyApi {
   // the token for interactive with the API will be stored here.
-  static token;
+  static token = localStorage.getItem("joblyToken");
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
@@ -90,6 +90,7 @@ class JoblyApi {
       );
       console.log(res.token);
       JoblyApi.token = res.token;
+      localStorage.setItem("joblyToken", res.token);
       return res.token;
     } catch (err) {
       console.error("Error logging in:", err);
