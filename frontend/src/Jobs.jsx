@@ -7,16 +7,18 @@ import UserContext from "./userContext";
 
 
 function Jobs(){
-    const [jobs, setJobs] = useState([])
+    const [jobs, setJobs] = useState([])    
     const {user} = useContext(UserContext)
     const navigate = useNavigate();
-    const {userToken, username} = useContext(UserContext)
+    const userObj = JSON.parse(user)
 
+    
     useEffect(() => {
         if (!user) {
-          navigate("/"); 
+          navigate("/");
         }
       }, [user, navigate]);
+           
 
     const [searchTerm, setSearchTerm] = useState('');
     //   const [searchResults, setSearchResults] = useState('');
