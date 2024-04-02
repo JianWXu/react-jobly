@@ -6,6 +6,7 @@ require("dotenv").config();
 require("colors");
 
 const PW = process.env.PW;
+const DB_URI = process.env.DB_URI;
 
 const SECRET_KEY = process.env.SECRET_KEY || "secret-dev";
 
@@ -15,7 +16,7 @@ const PORT = +process.env.PORT || 3001;
 function getDatabaseUri() {
   return process.env.NODE_ENV === "test"
     ? `postgresql://postgres:${PW}@localhost:5432/jobly_test`
-    : `postgresql://pnlhwcvg:T4zl3jCyWP6skq2x-SSGURT84FGpd-c7@bubble.db.elephantsql.com/pnlhwcvg`;
+    : DB_URI;
 }
 
 // Speed up bcrypt during tests, since the algorithm safety isn't being tested
