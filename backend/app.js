@@ -3,6 +3,7 @@
 /** Express app for jobly. */
 
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -27,6 +28,16 @@ app.use("/auth", authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
 app.use("/jobs", jobsRoutes);
+
+app.use(express.static(path.join(__dirname, "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+app.get("*.jsx", (req, res, next) => {
+  res.type("application/javascript");
+  next();
+});
+
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
